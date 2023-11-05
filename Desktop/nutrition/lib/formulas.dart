@@ -51,3 +51,67 @@ double dbwBMI(int? feet, int? inches) {
   }
   return dbw;
 }
+
+double terBasedOnPAL(
+    int? feet, int? inches, int? selectedPhysicalActivityLevel) {
+  double dbw = 0;
+  if (feet != null && inches != null && selectedPhysicalActivityLevel != null) {
+    double heightToMeter = (((feet * 12) + inches) * 0.0254).toDouble();
+    dbw = (heightToMeter * heightToMeter) * 22;
+    dbw = dbw * selectedPhysicalActivityLevel;
+  }
+  return dbw;
+}
+
+double bmrHarrisBenedictEquation(
+    int? feet, int? inches, int? age, String? gender, double? weight) {
+  if (feet == null ||
+      inches == null ||
+      age == null ||
+      gender == null ||
+      weight == null) {
+    // Handle null values as needed, such as throwing an error or returning a default value.
+    // For now, I'm returning 0 in case of any null input.
+    return 0;
+  }
+
+  double bmr = 0;
+  double baseForMale = 66.47;
+  double baseForFemale = 655.1;
+
+  double feetToInches = (feet * 12) + inches.toDouble();
+  double heightInCm = feetToInches * 2.54;
+
+  if (gender.toLowerCase() == "male") {
+    bmr = baseForMale + (13.75 * weight) + (5.003 * heightInCm) - (6.755 * age);
+  } else {
+    bmr =
+        baseForFemale + (9.563 * weight) + (1.850 * heightInCm) - (4.676 * age);
+  }
+
+  return bmr;
+}
+
+double bmrMifflinStJeorEquation(
+    int? feet, int? inches, int? age, String? gender, double? weight) {
+  if (feet == null ||
+      inches == null ||
+      age == null ||
+      gender == null ||
+      weight == null) {
+    // Handle null values as needed, such as throwing an error or returning a default value.
+    // For now, I'm returning 0 in case of any null input.
+    return 0;
+  }
+  double bmr = 0;
+  double feetToInches = (feet * 12) + inches.toDouble();
+  double heightInCm = feetToInches * 2.54;
+
+  if (gender.toLowerCase() == "male") {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 5;
+  } else {
+    bmr = bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 161;
+  }
+
+  return bmr;
+}

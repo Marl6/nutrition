@@ -10,6 +10,7 @@ class UserData {
   int? userHeightFeet;
   int? userHeightInches;
   double? userWeight;
+  int? selectedPhysicalActivityLevel;
 
   UserData({
     this.userName,
@@ -19,6 +20,7 @@ class UserData {
     this.userHeightFeet,
     this.userHeightInches,
     this.userWeight,
+    this.selectedPhysicalActivityLevel,
   });
 }
 
@@ -49,6 +51,7 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
       userHeightFeet: userHeightFeet,
       userHeightInches: userHeightInches,
       userWeight: userWeight,
+      selectedPhysicalActivityLevel: selectedPhysicalActivityLevel,
     );
 
     // Navigate to another file and pass userData
@@ -456,26 +459,13 @@ class AnotherScreen extends StatelessWidget {
                     children: <Widget>[
                       Padding(padding: EdgeInsets.all(32.0)),
                       Text(
-                        'DBW using TannHauser Method: ' +
-                            dbwTannHauser(userData.userHeightFeet,
-                                    userData.userHeightInches)
-                                .toStringAsFixed(2) +
-                            ' Kg',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-                      const Divider(),
-                      Padding(padding: EdgeInsets.all(32.0)),
-                      Text(
-                        'DBW using Hamwi Method: ' +
-                            dbwHamwiMethod(
+                        'TER based on PAL: ' +
+                            terBasedOnPAL(
                                     userData.userHeightFeet,
                                     userData.userHeightInches,
-                                    userData.userGender)
+                                    userData.selectedPhysicalActivityLevel)
                                 .toStringAsFixed(2) +
-                            ' Kg',
+                            ' kcal',
                         style: TextStyle(
                           fontSize: 15,
                           fontStyle: FontStyle.italic,
@@ -484,12 +474,49 @@ class AnotherScreen extends StatelessWidget {
                       const Divider(),
                       Padding(padding: EdgeInsets.all(32.0)),
                       Text(
-                        'DBW using BMI Method: ' +
-                            dbwBMI(
-                              userData.userHeightFeet,
-                              userData.userHeightInches,
-                            ).toStringAsFixed(2) +
-                            ' Kg',
+                        'BMR using Harris-Benedict Equation: ' +
+                            bmrHarrisBenedictEquation(
+                                    userData.userHeightFeet,
+                                    userData.userHeightInches,
+                                    userData.userAge,
+                                    userData.userGender,
+                                    userData.userWeight)
+                                .toStringAsFixed(2) +
+                            ' kcal',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      const Divider(),
+                      Padding(padding: EdgeInsets.all(32.0)),
+                      Text(
+                        'DBW using Mifflin-St Jeor Equation: ' +
+                            bmrMifflinStJeorEquation(
+                                    userData.userHeightFeet,
+                                    userData.userHeightInches,
+                                    userData.userAge,
+                                    userData.userGender,
+                                    userData.userWeight)
+                                .toStringAsFixed(2) +
+                            ' kcal',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      const Divider(),
+                      Padding(padding: EdgeInsets.all(32.0)),
+                      Text(
+                        'DBW using Oxford Equations: ' +
+                            bmrMifflinStJeorEquation(
+                                    userData.userHeightFeet,
+                                    userData.userHeightInches,
+                                    userData.userAge,
+                                    userData.userGender,
+                                    userData.userWeight)
+                                .toStringAsFixed(2) +
+                            ' kcal',
                         style: TextStyle(
                           fontSize: 15,
                           fontStyle: FontStyle.italic,
