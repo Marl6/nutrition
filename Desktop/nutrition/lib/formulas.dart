@@ -99,8 +99,6 @@ double bmrMifflinStJeorEquation(
       age == null ||
       gender == null ||
       weight == null) {
-    // Handle null values as needed, such as throwing an error or returning a default value.
-    // For now, I'm returning 0 in case of any null input.
     return 0;
   }
   double bmr = 0;
@@ -113,5 +111,35 @@ double bmrMifflinStJeorEquation(
     bmr = bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 161;
   }
 
+  return bmr;
+}
+
+double oxfordEquations(int? feet, int? inches, String? gender, int? age) {
+  if (feet == null || inches == null || gender == null || age == null) {
+    return 0;
+  }
+  double bmr = 0;
+  double feetToInches = (feet * 12) + inches.toDouble();
+  double heightInCm = feetToInches * 2.54;
+
+  if (gender.toLowerCase() == "male" && age >= 18 && age <= 30) {
+    bmr = 16.0 * heightInCm + 545;
+  } else if (gender.toLowerCase() == "male" && age >= 30 && age <= 60) {
+    bmr = 14.2 * heightInCm + 593;
+  } else if (gender.toLowerCase() == "male" && age >= 60 && age <= 69) {
+    bmr = 13.0 * heightInCm + 567;
+  } else if (gender.toLowerCase() == "male" && age >= 70) {
+    bmr = 13.7 * heightInCm + 481;
+  } else if (gender.toLowerCase() == "female" && age >= 18 && age <= 30) {
+    bmr = 13.1 * heightInCm + 558;
+  } else if (gender.toLowerCase() == "female" && age >= 30 && age <= 60) {
+    bmr = 9.74 * heightInCm + 694;
+  } else if (gender.toLowerCase() == "female" && age >= 60 && age <= 69) {
+    bmr = 10.2 * heightInCm + 572;
+  } else if (gender.toLowerCase() == "female" && age >= 70) {
+    bmr = 10.0 * heightInCm + 577;
+  } else {
+    return 0;
+  }
   return bmr;
 }

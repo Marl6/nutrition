@@ -509,13 +509,12 @@ class AnotherScreen extends StatelessWidget {
                       Padding(padding: EdgeInsets.all(32.0)),
                       Text(
                         'DBW using Oxford Equations: ' +
-                            bmrMifflinStJeorEquation(
-                                    userData.userHeightFeet,
-                                    userData.userHeightInches,
-                                    userData.userAge,
-                                    userData.userGender,
-                                    userData.userWeight)
-                                .toStringAsFixed(2) +
+                            oxfordEquations(
+                              userData.userHeightFeet,
+                              userData.userHeightInches,
+                              userData.userGender,
+                              userData.userAge,
+                            ).toStringAsFixed(2) +
                             ' kcal',
                         style: TextStyle(
                           fontSize: 15,
