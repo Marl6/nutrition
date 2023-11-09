@@ -143,3 +143,121 @@ double oxfordEquations(int? feet, int? inches, String? gender, int? age) {
   }
   return bmr;
 }
+
+double bmrxPAL(int? feet, int? inches, String? gender, int? age,
+    int? selectedPhysicalActivityLevel, double? weight) {
+  if (feet == null ||
+      inches == null ||
+      gender == null ||
+      age == null ||
+      weight == null) {
+    return 0;
+  }
+
+  double bmr = 0;
+  double feetToInches = (feet * 12) + inches.toDouble();
+  double heightInCm = feetToInches * 2.54;
+
+  if (gender.toLowerCase() == "male" && selectedPhysicalActivityLevel == 30) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 5;
+    bmr = bmr * 1.30;
+  } else if (gender.toLowerCase() == "male" &&
+      selectedPhysicalActivityLevel == 35) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 5;
+    bmr = bmr * 1.58;
+  } else if (gender.toLowerCase() == "male" &&
+      selectedPhysicalActivityLevel == 40) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 5;
+    bmr = bmr * 1.67;
+  } else if (gender.toLowerCase() == "male" &&
+      selectedPhysicalActivityLevel == 45) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 5;
+    bmr = bmr * 1.88;
+  } else if (gender.toLowerCase() == "female" &&
+      selectedPhysicalActivityLevel == 30) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age - 161;
+    bmr = bmr * 1.30;
+  } else if (gender.toLowerCase() == "female" &&
+      selectedPhysicalActivityLevel == 35) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age - 161;
+    bmr = bmr * 1.45;
+  } else if (gender.toLowerCase() == "female" &&
+      selectedPhysicalActivityLevel == 40) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age - 161;
+    bmr = bmr * 1.55;
+  } else if (gender.toLowerCase() == "female" &&
+      selectedPhysicalActivityLevel == 45) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age - 161;
+    bmr = bmr * 1.75;
+  } else {
+    return 0;
+  }
+  return bmr;
+}
+
+double amountMacronutrients(
+    int? feet,
+    int? inches,
+    String? gender,
+    int? age,
+    int? selectedPhysicalActivityLevel,
+    double? weight,
+    int? carbs,
+    int? protein,
+    int? fats) {
+  if (feet == null ||
+      inches == null ||
+      gender == null ||
+      age == null ||
+      weight == null ||
+      selectedPhysicalActivityLevel == null ||
+      carbs == null ||
+      protein == null ||
+      fats == null) {
+    return 0;
+  }
+
+  double bmr = 0;
+  double feetToInches = (feet * 12) + inches.toDouble();
+  double heightInCm = feetToInches * 2.54;
+  double carbskcal = carbs / 100;
+  double proteinkcal = protein / 100;
+  double fatskcal = fats / 100;
+
+  if (gender.toLowerCase() == "male" && selectedPhysicalActivityLevel == 30) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 5;
+    bmr = bmr * 1.30;
+  } else if (gender.toLowerCase() == "male" &&
+      selectedPhysicalActivityLevel == 35) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 5;
+    bmr = bmr * 1.58;
+  } else if (gender.toLowerCase() == "male" &&
+      selectedPhysicalActivityLevel == 40) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 5;
+    bmr = bmr * 1.67;
+  } else if (gender.toLowerCase() == "male" &&
+      selectedPhysicalActivityLevel == 45) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age + 5;
+    bmr = bmr * 1.88;
+  } else if (gender.toLowerCase() == "female" &&
+      selectedPhysicalActivityLevel == 30) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age - 161;
+    bmr = bmr * 1.30;
+  } else if (gender.toLowerCase() == "female" &&
+      selectedPhysicalActivityLevel == 35) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age - 161;
+    bmr = bmr * 1.45;
+  } else if (gender.toLowerCase() == "female" &&
+      selectedPhysicalActivityLevel == 40) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age - 161;
+    bmr = bmr * 1.55;
+  } else if (gender.toLowerCase() == "female" &&
+      selectedPhysicalActivityLevel == 45) {
+    bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age - 161;
+    bmr = bmr * 1.75;
+  } else {
+    return 0;
+  }
+
+  return bmr;
+}
