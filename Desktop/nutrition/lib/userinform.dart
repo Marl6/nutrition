@@ -55,26 +55,53 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
   List<int> listFatRequirement = List.generate(26, (index) => 5 + index);
 
   void _handleSubmit() {
-    UserData userData = UserData(
-      userName: userName,
-      userAddress: userAddress,
-      userAge: userAge,
-      userGender: userGender,
-      userHeightFeet: userHeightFeet,
-      userHeightInches: userHeightInches,
-      userWeight: userWeight,
-      selectedPhysicalActivityLevel: selectedPhysicalActivityLevel,
-      selectedCarbohydrateRequirement: selectedCarbohydrateRequirement,
-      selectedProteinRequirement: selectedProteinRequirement,
-      selectedFatRequirement: selectedFatRequirement,
-    );
+    int totalValue = (selectedCarbohydrateRequirement ?? 0) +
+        (selectedProteinRequirement ?? 0) +
+        (selectedFatRequirement ?? 0);
 
-    // Navigate to another file and pass userData
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => AnotherScreen(userData: userData)),
-    );
+    if (totalValue == 100) {
+      // Total value is 100, proceed with creating UserData and navigate to AnotherScreen
+      UserData userData = UserData(
+        userName: userName,
+        userAddress: userAddress,
+        userAge: userAge,
+        userGender: userGender,
+        userHeightFeet: userHeightFeet,
+        userHeightInches: userHeightInches,
+        userWeight: userWeight,
+        selectedPhysicalActivityLevel: selectedPhysicalActivityLevel,
+        selectedCarbohydrateRequirement: selectedCarbohydrateRequirement,
+        selectedProteinRequirement: selectedProteinRequirement,
+        selectedFatRequirement: selectedFatRequirement,
+      );
+
+      // Navigate to AnotherScreen and pass userData
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AnotherScreen(userData: userData),
+        ),
+      );
+    } else {
+      // Total value is not 100, show an error dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Macronutrient Distribution Error'),
+            content: Text('The total value must be 100%'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -361,7 +388,7 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
                     .toList(),
               ),
               const Divider(),
-              Container(
+              SizedBox(
                 width:
                     300, // Set a specific width or use double.infinity for maximum width
                 child: DropdownButton<int>(
@@ -382,7 +409,7 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
                       .toList(),
                 ),
               ),
-              Container(
+              SizedBox(
                 width:
                     300, // Set a specific width or use double.infinity for maximum width
                 child: DropdownButton<int>(
@@ -403,7 +430,7 @@ class _PersonalInfoFormState extends State<PersonalInfoForm> {
                       .toList(),
                 ),
               ),
-              Container(
+              SizedBox(
                 width:
                     300, // Set a specific width or use double.infinity for maximum width
                 child: DropdownButton<int>(
@@ -454,8 +481,8 @@ class AnotherScreen extends StatelessWidget {
             tabs: [
               Tab(text: 'DBW'), // First tab
               Tab(text: 'TER'), // Second tab
-              Tab(text: 'Nutrient Requirements'), // Third tab
-              Tab(text: 'Table'), // Fourth tab
+              Tab(text: 'Diet Prescription'), // Third tab
+              Tab(text: 'Translating Diet Prescription'), // Fourth tab
             ],
           ),
         ),
@@ -627,12 +654,49 @@ class AnotherScreen extends StatelessWidget {
               ],
             ),
             // Widget for the 'Nutrient Requirements' tab
-            Center(
-              child: Text('Content for Nutrient Requirements tab'),
+            Column(
+              children: [
+                Padding(padding: EdgeInsets.all(16.0)),
+                Text(
+                  'Diet Prescription', // Title
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(padding: EdgeInsets.all(32.0)),
+                      Text(
+                        amountMacronutrients(
+                            userData.userHeightFeet,
+                            userData.userHeightInches,
+                            userData.userGender,
+                            userData.userAge,
+                            userData.selectedPhysicalActivityLevel,
+                            userData.userWeight,
+                            userData.selectedCarbohydrateRequirement,
+                            userData.selectedProteinRequirement,
+                            userData.selectedFatRequirement),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      Padding(padding: EdgeInsets.all(32.0)),
+                      const Divider(),
+                    ],
+                  ),
+                ),
+              ],
             ),
             // Widget for the 'Table' tab
             Center(
-              child: Text('Content for Table tab'),
+              child: Text('Content for Diet Pres chuchu tab'),
             ),
           ],
         ),

@@ -1,8 +1,6 @@
 // ignore_for_file: avoid_print, unused_local_variable
 
 double dbwTannHauser(int? feet, int? inches) {
-  // Perform the necessary calculations here and return the result
-  // For example:
   print('Feet: $feet, Inches: $inches');
   double heightInCm = (feet ?? 0) * 30.48 + (inches ?? 0) * 2.54;
   print('Height in cm: $heightInCm');
@@ -70,8 +68,6 @@ double bmrHarrisBenedictEquation(
       age == null ||
       gender == null ||
       weight == null) {
-    // Handle null values as needed, such as throwing an error or returning a default value.
-    // For now, I'm returning 0 in case of any null input.
     return 0;
   }
 
@@ -195,7 +191,7 @@ double bmrxPAL(int? feet, int? inches, String? gender, int? age,
   return bmr;
 }
 
-double amountMacronutrients(
+String amountMacronutrients(
     int? feet,
     int? inches,
     String? gender,
@@ -214,7 +210,7 @@ double amountMacronutrients(
       carbs == null ||
       protein == null ||
       fats == null) {
-    return 0;
+    return "invalid";
   }
 
   double bmr = 0;
@@ -256,8 +252,25 @@ double amountMacronutrients(
     bmr = 9.99 * weight + 6.25 * heightInCm - 4.92 * age - 161;
     bmr = bmr * 1.75;
   } else {
-    return 0;
+    return "invalid";
   }
 
-  return bmr;
+  double roundToNearestMultipleOf5(double value) {
+    double roundedValue = (value / 5).roundToDouble() * 5;
+    return roundedValue;
+  }
+
+  double kcal = bmr;
+  double carbsPresc;
+  double proteinPresc;
+  double fatPresc;
+  print(kcal);
+  carbsPresc = (kcal * carbskcal) / 4;
+  proteinPresc = (kcal * proteinkcal) / 4;
+  fatPresc = (kcal * fatskcal) / 9;
+
+  carbsPresc = roundToNearestMultipleOf5(carbsPresc);
+  proteinPresc = roundToNearestMultipleOf5(proteinPresc);
+  fatPresc = roundToNearestMultipleOf5(fatPresc);
+  return "kcal: ${kcal.toStringAsFixed(0)} kcal\n\nCarbohydrate: ${carbsPresc.toStringAsFixed(2)} g\n\nProtein: ${proteinPresc.toStringAsFixed(2)} g\n\nFat: ${fatPresc.toStringAsFixed(2)} g";
 }
